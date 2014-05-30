@@ -5,3 +5,9 @@
 # Install config scripts locally
 #
 ######################################################################
+
+for d in `ls -d */`
+do
+	echo "Setting up ${d%/}"...
+	./${d}setup.sh
+done
