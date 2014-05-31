@@ -6,6 +6,28 @@
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Functions
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Toggle spell check mode
+function! ToggleSpell()
+	if &spell
+		setlocal nospell
+	else
+		setlocal spell spelllang=en_us
+	endif
+endfunction
+
+" Change tab width
+function! SetTab(width)
+	execute "setlocal tabstop=".a:width
+	execute "setlocal shiftwidth=".a:width
+	execute "setlocal softtabstop=".a:width
+endfunction
+
 " Set this first so that Vim options are available
 set nocompatible
 
@@ -195,17 +217,3 @@ if !exists('autocommands_loaded')
 	autocmd BufRead, BufNewFile *.pde set filetype=arduino
 	autocmd BufRead, BufNewFile *.ino set filetype=arduino
 endif " !exists('autocommands_loaded')
-
-function! ToggleSpell()
-	if &spell
-		setlocal nospell
-	else
-		setlocal spell spelllang=en_us
-	endif
-endfunction
-
-function! SetTab(width)
-	execute "setlocal tabstop=".a:width
-	execute "setlocal shiftwidth=".a:width
-	execute "setlocal softtabstop=".a:width
-endfunction
