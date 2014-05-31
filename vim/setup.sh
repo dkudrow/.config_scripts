@@ -18,12 +18,10 @@ then
 	ln -sf ${REPO}.vimrc ${HOME}.vimrc
 fi
 
-overwrite ${HOME}.vimrc.local
-if [ $? == 1 ]
+if [ ! -e ${HOME}.vimrc.local ]
 then
-	echo "> Linking '.vimrc.local'"
-	rm -f ${HOME}.vimrc.local
-	ln -sf ${REPO}.vimrc.local ${HOME}.vimrc.local
+	echo "> Creating '${HOME}.vimrc.local"
+	>${CONFIG_DIR}.vimrc.local
 fi
 
 mkdir -p ${VIM}autoload/
