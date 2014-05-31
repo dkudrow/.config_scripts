@@ -15,6 +15,7 @@ do
 	overwrite ${CONFIG_DIR}${CONFIG_FILE}
 	if [ $? == 1 ]
 	then
+		echo "> Linking '${CONFIG_DIR}${CONFIG_FILE}'"
 		rm -f ${CONFIG_DIR}${CONFIG_FILE}
 		ln -sf ${REPO_DIR}${CONFIG_FILE} ${CONFIG_DIR}${CONFIG_FILE}
 	fi
