@@ -18,6 +18,14 @@ then
 	ln -sf ${REPO}.vimrc ${HOME}.vimrc
 fi
 
+overwrite ${HOME}.vimrc.local
+if [ $? == 1 ]
+then
+	echo "> Linking '.vimrc.local'"
+	rm -f ${HOME}.vimrc.local
+	ln -sf ${REPO}.vimrc.local ${HOME}.vimrc.local
+fi
+
 mkdir -p ${VIM}autoload/
 overwrite ${VIM}autoload/pathogen.vim
 if [ $? == 1 ]
