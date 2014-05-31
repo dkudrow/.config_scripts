@@ -104,6 +104,8 @@ set nrformats+=alpha  	" number formats recognized for CTRL-A command
 set shiftround	  		" round indent to multiple of shiftwidth
 set showfulltag	  		" show full tag pattern when completing tag
 set showmatch	  		" briefly jump to matching bracket if insert one
+set textwidth=75
+call SetTab(4)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -158,65 +160,30 @@ if !exists('autocommands_loaded')
 
 	" Assembly
 	autocmd FileType asm
-		\ set tabstop=8 |
-		\ set shiftwidth=8 |
-		\ set softtabstop=8 |
+		\ call SetTab(8)
 		\ retab
 
 	" Python
 	autocmd FileType python
-		\ set tabstop=8 |
-		\ set expandtab |
-		\ set shiftwidth=4 |
-		\ set softtabstop=4 |
+		\ set expandtab
 		\ retab
 
 	" Conque
-	autocmd FileType conque_term
-		\ set nocursorcolumn |
-		\ set nocursorline |
-		\ set colorcolumn=""
-
-	" Scaffold files
-	autocmd BufReadPost *.scaffold,*.ctqg
-		\ set filetype=c
+	"autocmd FileType conque_term
 
 	" LaTeX files
 	autocmd FileType latex,tex
-		\ setlocal textwidth=80 |
+		\ setlocal textwidth=75 |
 		\ setlocal ignorecase |
-		\ setlocal infercase |
-		\ map <buffer> ,c :call CommentLine("%")<CR>|
-		\ map <buffer> ,d :call UncommentLine("%")<CR>|
-		\ imap <buffer> ,c <Esc>:call CommentLine("%")<CR>a|
-		\ imap <buffer> ,d <Esc>:call UncommentLine("%")<CR>a
-
-	" Bash, Python, Awk
-	autocmd FileType sh,python,awk
-		\ map <buffer> ,c :call CommentLine("#")<CR>|
-		\ map <buffer> ,d :call UncommentLine("#")<CR>|
-		\ imap <buffer> ,c <Esc>:call CommentLine("#")<CR>a|
-		\ imap <buffer> ,d <Esc>:call UncommentLine("#")<CR>a
-
-	" C/C++, PHP
-	autocmd FileType cpp,c,php
-		\ map <buffer> ,c :call CommentLine("//")<CR>|
-		\ map <buffer> ,d :call UncommentLine("//")<CR>|
-		\ imap <buffer> ,c <Esc>:call CommentLine("//")<CR>a|
-		\ imap <buffer> ,d <Esc>:call UncommentLine("//")<CR>a
+		\ setlocal infercase
 
 	" Vim files
 	autocmd FileType vim
-		\ setlocal keywordprg=:help |
-		\ map <buffer> ,c :call CommentLine("\"")<CR>|
-		\ map <buffer> ,d :call UncommentLine("\"")<CR>|
-		\ imap <buffer> ,c <Esc>:call CommentLine("\"")<CR>a|
-		\ imap <buffer> ,d <Esc>:call UncommentLine("\"")<CR>a
+		\ setlocal keywordprg=:help
 
 	" Help Files
 	autocmd FileType help
-		\ setlocal keywordprg=:help |
-		\ setlocal nocursorcolumn
+		\ setlocal keywordprg=:help
 
 	" Jump to last known cursor position
 	autocmd	BufReadPost *
@@ -229,18 +196,6 @@ if !exists('autocommands_loaded')
 	autocmd BufRead, BufNewFile *.ino set filetype=arduino
 endif " !exists('autocommands_loaded')
 
-function! CommentLine(comment)
-	execute "normal mt"
-	execute "normal I" . a:comment . " \<Esc>"
-	execute "normal `t" . (len(a:comment)+1) . "l"
-endfunction
-
-function! UncommentLine(comment)
-	execute "normal mt"
-	execute "normal ^" . (len(a:comment)+1) . "x"
-	execute "normal `t" . (len(a:comment)+1) . "h"
-endfunction
-
 function! ToggleSpell()
 	if &spell
 		setlocal nospell
@@ -250,12 +205,7 @@ function! ToggleSpell()
 endfunction
 
 function! SetTab(width)
-	setlocal shiftwidth=a:width
-	setlocal tabstop=a:width
-	setlocal softtabstop=a:width
-endfunction
-
-function! InputChar()
-	let c = getchar()
-	return type(c) == type(0) ? nr2char(c) : c
+	execute "setlocal tabstop=".a:width
+	execute "setlocal shiftwidth=".a:width
+	execute "setlocal softtabstop=".a:width
 endfunction
