@@ -21,7 +21,7 @@ fi
 if [ ! -e ${HOME}.vimrc.local ]
 then
 	echo "> Creating '${HOME}.vimrc.local"
-	>${CONFIG_DIR}.vimrc.local
+	>${HOME}.vimrc.local
 fi
 
 mkdir -p ${VIM}autoload/
