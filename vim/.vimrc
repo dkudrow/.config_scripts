@@ -180,32 +180,46 @@ execute pathogen#infect()
 if !exists('autocommands_loaded')
 	let autocommands_loaded = 1
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Filetype specific commands
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 	" Assembly
 	autocmd FileType asm
-		\ call SetTab(8)
+		\ call SetTab(8) |
 		\ retab
 
-	" Python
-	autocmd FileType python
-		\ set expandtab
-		\ retab
+	" Help
+	autocmd FileType help
+		\ setlocal keywordprg=:help
 
-	" Conque
-	"autocmd FileType conque_term
-
-	" LaTeX files
+	" LaTeX
 	autocmd FileType latex,tex
-		\ setlocal textwidth=75 |
 		\ setlocal ignorecase |
 		\ setlocal infercase
 
-	" Vim files
+	" Python
+	autocmd FileType python
+		\ set expandtab |
+		\ retab
+
+	" Ruby
+	autocmd FileType ruby
+		\ call SetTab(2) |
+		\ set expandtab |
+		\ retab
+
+	" Vimscript
 	autocmd FileType vim
 		\ setlocal keywordprg=:help
 
-	" Help Files
-	autocmd FileType help
-		\ setlocal keywordprg=:help
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Miscellaneous autocommands
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 	" Jump to last known cursor position
 	autocmd	BufReadPost *
