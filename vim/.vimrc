@@ -92,7 +92,30 @@ set wrapmargin=1		" chars from the right where wrapping starts
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set statusline=%<\[%n\]\ %F%m\ %r%y%w%q%=%-14.(%l:%c%)\ \[%L\]
+function! GetEt()
+	if &expandtab | return '<et> ' | else | return '' | endif
+endfunction
+
+" Status flags
+set statusline=%<			" Truncate at the beginning
+set statusline+=\[%n\]\ 	" Buffer number
+set statusline+=\"%F\"\ 	" Filename with full path
+set statusline+=%m			" Modified flag
+set statusline+=%r			" Readonly flag
+set statusline+=%y			" Filetype
+set statusline+=%w			" Preview window flag
+set statusline+=%q			" Quickfixes, locations, or empty
+set statusline+=%=			" Separation between left- and right-align
+
+" Options values
+set statusline+=<tw=%{&textwidth}>\ " Show textwidth
+set statusline+=<ts=%{&tabstop}>\ 	" Show tabstop
+set statusline+=%{GetEt()}			" Show expandtab
+
+" Position
+set statusline+=%-14.(\(%l,%c\)%)
+set statusline+=%L\ lines\ 
+set statusline+=--%p%%--
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
