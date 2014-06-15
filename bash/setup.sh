@@ -6,7 +6,7 @@
 #
 ######################################################################
 
-CONFIG_FILES=(.bash_aliases)
+CONFIG_FILES=(.bashrc .bash_aliases)
 CONFIG_DIR=~/
 REPO_DIR=${PWD}/bash/
 
