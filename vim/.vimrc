@@ -28,11 +28,26 @@ function! SetTab(width)
 	execute "setlocal softtabstop=".a:width
 endfunction
 
+" Get the number of terminal colors
+function! GetColor()
+	let c = split(system('tput colors'))[0]
+	return c
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Global configuration
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Set this first so that Vim options are available
 set nocompatible
 
 " Play nice with tmux
 set term=xterm
+
+" Some terminals don't know they have 256 colors
+set t_Co=256
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -52,7 +67,7 @@ noremap <C-h> ^
 noremap <C-l> $
 
 " Make navigating tabs easier
-noremap te :tabedit
+noremap te :tabedit 
 noremap tn :tabnext<CR>
 noremap tp :tabprevious<CR>
 
@@ -93,29 +108,63 @@ set wrapmargin=1		" chars from the right where wrapping starts
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! GetEt()
-	if &expandtab | return '<et> ' | else | return '' | endif
+	if &expandtab | return '[et]' | else | return '' | endif
 endfunction
+
+" Highlight groups
+function! StatuslineSolarized()
+	highlight StBuffer term=bold cterm=None ctermbg=DarkGrey  ctermfg=White
+	highlight StFilename term=bold cterm=bold ctermbg=DarkGrey ctermfg=Black
+	highlight StFlags term=bold cterm=None ctermbg=DarkGrey ctermfg=White
+	highlight StOptions term=bold cterm=None ctermbg=DarkGrey ctermfg=Black
+	highlight StPosition term=bold cterm=bold ctermbg=DarkGrey ctermfg=Black
+endfunction
+
+function! StatuslineDark()
+	highlight StBuffer term=bold cterm=None ctermbg=DarkBlue ctermfg=Red
+	highlight StFilename term=bold cterm=bold ctermbg=DarkBlue ctermfg=Cyan
+	highlight StFlags term=bold cterm=None ctermbg=DarkBlue ctermfg=Red
+	highlight StOptions term=bold cterm=None ctermbg=DarkBlue ctermfg=Cyan
+	highlight StPosition term=bold cterm=bold ctermbg=DarkBlue ctermfg=Yellow
+endfunction
+
+function! StatuslineLight()
+	highlight StBuffer term=bold cterm=bold ctermbg=Blue ctermfg=Black
+	highlight StFilename term=bold cterm=bold ctermbg=Cyan ctermfg=Black
+	highlight StFlags term=bold cterm=bold ctermbg=Cyan ctermfg=Black
+	highlight StOptions term=bold cterm=bold ctermbg=Blue ctermfg=Black
+	highlight StPosition term=bold cterm=bold ctermbg=Cyan ctermfg=Black
+endfunction
+
+call StatuslineSolarized()
 
 " Status flags
 set statusline=%<			" Truncate at the beginning
-set statusline+=\[%n\]\ 	" Buffer number
-set statusline+=\"%F\"\ 	" Filename with full path
-set statusline+=%m			" Modified flag
+set statusline+=%#StBuffer#
+set statusline+=[%n]	" Buffer number
+set statusline+=%#StFilename#
+set statusline+=\ \"%F\"\ 	" Filename with full path
+set statusline+=%#StFlags#
+set statusline+=%m		" Modified flag
 set statusline+=%r			" Readonly flag
 set statusline+=%y			" Filetype
 set statusline+=%w			" Preview window flag
 set statusline+=%q			" Quickfixes, locations, or empty
-set statusline+=%=			" Separation between left- and right-align
 
 " Options values
-set statusline+=<tw=%{&textwidth}>\ " Show textwidth
-set statusline+=<ts=%{&tabstop}>\ 	" Show tabstop
+set statusline+=%-.(%)
+set statusline+=%#StOptions#
+set statusline+=%-1.(%)				" Pad
+set statusline+=[tw=%{&textwidth}]	" Show textwidth
+set statusline+=[ts=%{&tabstop}]	" Show tabstop
 set statusline+=%{GetEt()}			" Show expandtab
 
 " Position
-set statusline+=%-14.(\(%l,%c\)%)
-set statusline+=%L\ lines\ 
-set statusline+=--%p%%--
+set statusline+=%=			" Separation between left- and right-align
+set statusline+=%#StPosition#
+set statusline+=\ %L\ lines\ 
+set statusline+=%-.(--%l,%c--\ %)
+"set statusline+=--%p%%--
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
