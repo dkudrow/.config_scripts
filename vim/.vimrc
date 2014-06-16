@@ -129,11 +129,11 @@ function! StatuslineDark()
 endfunction
 
 function! StatuslineLight()
-	highlight StBuffer term=bold cterm=bold ctermbg=Blue ctermfg=Black
-	highlight StFilename term=bold cterm=bold ctermbg=Cyan ctermfg=Black
-	highlight StFlags term=bold cterm=bold ctermbg=Cyan ctermfg=Black
-	highlight StOptions term=bold cterm=bold ctermbg=Blue ctermfg=Black
-	highlight StPosition term=bold cterm=bold ctermbg=Cyan ctermfg=Black
+	highlight StBuffer term=bold cterm=bold ctermbg=DarkGrey ctermfg=White
+	highlight StFilename term=bold cterm=bold ctermbg=DarkGrey ctermfg=Cyan
+	highlight StFlags term=bold cterm=bold ctermbg=DarkGrey ctermfg=White
+	highlight StOptions term=bold cterm=bold ctermbg=DarkGrey ctermfg=LightGrey
+	highlight StPosition term=bold cterm=bold ctermbg=DarkGrey ctermfg=White
 endfunction
 
 call StatuslineSolarized()
