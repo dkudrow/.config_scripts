@@ -65,7 +65,7 @@ case "$TERM" in
 		;;
 esac
 
-echo "TERM: '$ORIG_TERM' -> '$TERM'"
+#echo "TERM: '$ORIG_TERM' -> '$TERM'"
 
 ######################################################################
 #
@@ -139,7 +139,11 @@ fi
 # Local configuration
 [ -f ~/.bashrc.local ] && . ~/.bashrc.local
 
-date
-echo
+######################################################################
+#
+# Last words?
+#
+######################################################################
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+#date
+#echo
