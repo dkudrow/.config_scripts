@@ -13,7 +13,13 @@ alias ub='ssh -i ~/.ssh/dani-aws -l ubuntu '
 
 alias rm='rm -i'
 
-alias ls='ls --color=auto -F -v'
+# Mac's ls is stupid
+if [ $(uname) = 'Darwin' ]; then
+	alias ls='ls -G -F -v'
+else
+	alias ls='ls --color=auto -F -v'
+fi
+
 alias ll='ls -Al'
 alias la='ls -AF'
 alias lf='ls -rt -d -1 $PWD/*'

@@ -145,7 +145,7 @@ function! StatuslineBrown()
 	highlight StPosition term=bold cterm=bold ctermbg=Brown ctermfg=White
 endfunction
 
-call StatuslineSolarized()
+call StatuslineDark()
 
 " Status flags
 set statusline=%<			" Truncate at the beginning
