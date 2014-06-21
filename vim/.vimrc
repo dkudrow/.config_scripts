@@ -136,6 +136,15 @@ function! StatuslineLight()
 	highlight StPosition term=bold cterm=bold ctermbg=DarkGrey ctermfg=White
 endfunction
 
+function! StatuslineBrown()
+	highlight StBuffer term=bold cterm=bold ctermbg=Brown ctermfg=White
+	highlight StFilename term=bold cterm=bold ctermbg=Brown ctermfg=LightCyan
+	highlight StModified term=bold cterm=bold ctermbg=Brown ctermfg=LightRed
+	highlight StFlags term=bold cterm=bold ctermbg=Brown ctermfg=White
+	highlight StOptions term=bold cterm=bold ctermbg=Brown ctermfg=LightGrey
+	highlight StPosition term=bold cterm=bold ctermbg=Brown ctermfg=White
+endfunction
+
 call StatuslineSolarized()
 
 " Status flags
@@ -144,8 +153,8 @@ set statusline+=%#StBuffer#
 set statusline+=[%n]	" Buffer number
 set statusline+=%#StFilename#
 set statusline+=\ \"%F\"\ 	" Filename with full path
-set statusline+=%#StFlags#
 set statusline+=%m		" Modified flag
+set statusline+=%#StFlags#
 set statusline+=%r			" Readonly flag
 set statusline+=%y			" Filetype
 set statusline+=%w			" Preview window flag

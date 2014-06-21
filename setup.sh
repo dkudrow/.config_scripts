@@ -6,6 +6,9 @@
 #
 ######################################################################
 
+DIRS=
+
+# Make this check available to all of the setup scripts
 function overwrite() {
 if [ -e $1 ]
 then
@@ -25,8 +28,17 @@ fi
 
 export -f overwrite
 
-for d in `ls -d */`
+# Allow user to select which configs to include
+if [ $# -eq 0 ]
+then
+	DIRS="`ls -d */`"
+else
+	DIRS=$@
+fi
+
+# Run the desired setup scripts
+for d in $DIRS
 do
 	echo "Setting up ${d%/}"...
-	./${d}setup.sh
+	./${d}/setup.sh
 done
