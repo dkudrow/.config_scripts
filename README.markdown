@@ -62,7 +62,8 @@ Adding a set of configuration files is pretty simple:
 ## Adding vim-pathogen plugins
 To add a plugin, simply add it as a git submodule:
 
-		git submodule add repository local_path
+		cd /path/to/.config_scripts
+		git submodule add https://github.com/scrooloose/nerdtree.git vim/.vim/bundle/nerdtree
 
 When cloning `.config_scripts` on a fresh machine, run:
 
