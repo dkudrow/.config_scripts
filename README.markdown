@@ -22,7 +22,7 @@ Some scripts to ease the pain of migrating to a new machine.
 
 	cd /path/to/.config_scripts
 
-5. Run the setup script.
+5. Run the setup script (use '-h' to see options).
 
 	./setup.sh
 
