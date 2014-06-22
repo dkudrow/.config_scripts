@@ -77,7 +77,7 @@ function install_file() {
 check_exists ${CONFIG_DIR}$1
 if [ $? == 1 ]
 then
-	[ $QUIET != true ] && echo "> Linking '${CONFIG_DIR}$1'"
+	[ $QUIET != true ] && echo "-- Linking '${CONFIG_DIR}$1'"
 	[ $VERBOSE = true ] && echo "rm -f ${CONFIG_DIR}$1"
 	rm -f ${CONFIG_DIR}$1
 	[ $VERBOSE = true ] && echo "ln -sf ${REPO_DIR}$1 ${CONFIG_DIR}$1"
