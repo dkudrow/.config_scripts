@@ -51,7 +51,7 @@ shift $((OPTIND-1))
 ######################################################################
 
 # If a file already exists, determine whether to overwrite it
-function overwrite() {
+function check_exists() {
 if [[ -e $1 && "$FORCE" != true ]]
 then
 	read -p "File '$1' already exists. Overwrite? [y]/n " OVERWRITE
@@ -68,7 +68,29 @@ else
 fi
 }
 
-export -f overwrite
+function install_files() {
+for f in ${CONFIG_FILES[@]}
+do
+	check_exists ${CONFIG_DIR}${f}
+	if [ $? == 1 ]
+	then
+		[ $QUIET != true ] && echo "> Linking '${CONFIG_DIR}${f}'"
+		rm -f ${CONFIG_DIR}${f}
+		ln -sf ${REPO_DIR}${f} ${CONFIG_DIR}${f}
+	fi
+done
+}
+
+function mk_local_stubs() {
+for f in ${LOCAL_FILES[@]}
+do
+	if [ ! -e ${CONFIG_DIR}${f} ]
+	then
+		[ $QUIET != true ] && echo "> Creating '${CONFIG_DIR}${f}'"
+		>${CONFIG_DIR}${f}
+	fi
+done
+}
 
 ######################################################################
 #
@@ -88,7 +110,13 @@ fi
 for d in $DIRS
 do
 	echo "Setting up ${d%/}"...
-	./${d}/setup.sh
+	export CONFIG_FILES=
+	export LOCAL_FILES=
+	export CONFIG_DIR=
+	export REPO_DIR=
+	source ${d}/setup.sh
+	install_files
+	mk_local_stubs
 done
 
 ######################################################################
@@ -99,4 +127,3 @@ done
 
 unset FORCE
 unset QUIET
-unset overwrite
