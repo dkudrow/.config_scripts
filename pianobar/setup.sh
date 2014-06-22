@@ -7,4 +7,4 @@
 CONFIG_FILES=(config)
 LOCAL_FILES=()
 CONFIG_DIR=~/.config/pianobar/
-REPO_DIR=${PWD}/pianobar/
+REPO_DIR=${CONFIG_SCRIPTS}pianobar/

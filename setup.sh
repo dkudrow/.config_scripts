@@ -6,24 +6,28 @@
 #
 ######################################################################
 
+export CONFIG_SCRIPTS=~/.config_scripts/
+
 ######################################################################
 #
 # Parse command line arguments
 #
 ######################################################################
 
-FORCE=false
-export FORCE
-QUIET=false
-export QUIET
+export FORCE=false
+export QUIET=false
+export VERBOSE=false
 
-while getopts :fq OPT; do
+while getopts :fqv OPT; do
 	case $OPT in
-		f)	# -f	Force all files to be overwritten
+		f) # -f	Force all files to be overwritten
 			FORCE=true
 			;;
 		q) # -q	Only write to screen to request user input
 			QUIET=true
+			;;
+		v) # -v	Print every shell command
+			VERBOSE=true
 			;;
 		*) # Show usage message
 			cat << EOF
@@ -32,6 +36,7 @@ Install configuration scripts from .config_scripts repository
 
   -f	force all existing files to be overwritten
   -q	suppress output
+  -v	print all shell commands executed
 
 Each DIR is a directory in .config_scripts/. If no directories are
 specified, all directories will be installed by default.
@@ -68,15 +73,46 @@ else
 fi
 }
 
+function install_file() {
+check_exists ${CONFIG_DIR}$1
+if [ $? == 1 ]
+then
+	[ $QUIET != true ] && echo "> Linking '${CONFIG_DIR}$1'"
+	[ $VERBOSE = true ] && echo "rm -f ${CONFIG_DIR}$1"
+	rm -f ${CONFIG_DIR}$1
+	[ $VERBOSE = true ] && echo "ln -sf ${REPO_DIR}$1 ${CONFIG_DIR}$1"
+	ln -sf ${REPO_DIR}$1 ${CONFIG_DIR}$1
+fi
+}
+
+# Install a list of files	
 function install_files() {
 for f in ${CONFIG_FILES[@]}
 do
-	check_exists ${CONFIG_DIR}${f}
-	if [ $? == 1 ]
+	# TODO
+	[ $VERBOSE = true ] && echo mkdir -p $CONFIG_DIR
+	mkdir -p $CONFIG_DIR
+	# If the path ends with a '/' it's a directory
+	if [ ${f:$((${#f}-1)):1} = '/' ]
 	then
-		[ $QUIET != true ] && echo "> Linking '${CONFIG_DIR}${f}'"
-		rm -f ${CONFIG_DIR}${f}
-		ln -sf ${REPO_DIR}${f} ${CONFIG_DIR}${f}
+		[ $VERBOSE = true ] && echo mkdir -p $CONFIG_DIR$f
+		mkdir -p $CONFIG_DIR$f
+		for g in `ls $REPO_DIR$f`
+		do
+			install_file "$f$g"
+		done
+	else
+		# Build path if required
+		IFS='/' read -a split <<< "$f"
+		STRLEN=${#split[@]}
+		if [ $STRLEN -gt 1 ]
+		then
+			PATH_TO=${split[*]::$((STRLEN-1))}
+			PATH_TO=${PATH_TO// /\/}
+			[ $VERBOSE = true ] && echo mkdir -p ${CONFIG_DIR}$PATH_TO
+			mkdir -p ${CONFIG_DIR}$PATH_TO
+		fi
+		install_file $f
 	fi
 done
 }
@@ -87,6 +123,7 @@ do
 	if [ ! -e ${CONFIG_DIR}${f} ]
 	then
 		[ $QUIET != true ] && echo "> Creating '${CONFIG_DIR}${f}'"
+		[ $VERBOSE = true ] && echo ">${CONFIG_DIR}${f}"
 		>${CONFIG_DIR}${f}
 	fi
 done
