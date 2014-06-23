@@ -15,13 +15,17 @@ export CONFIG_SCRIPTS=~/.config_scripts/
 ######################################################################
 
 export FORCE=false
+export FORCENO=false
 export QUIET=false
 export VERBOSE=false
 
-while getopts :fqv OPT; do
+while getopts :fnqv OPT; do
 	case $OPT in
 		f) # -f	Force all files to be overwritten
 			FORCE=true
+			;;
+		n) # -n	Force all files NOT to be overwritten
+			FORCENO=true
 			;;
 		q) # -q	Only write to screen to request user input
 			QUIET=true
@@ -36,6 +40,7 @@ Install configuration scripts from .config_scripts repository
 
   -f	force all existing files to be overwritten
   -q	suppress output
+  -n	do not overwrite any existing files
   -v	print all shell commands executed
 
 Each DIR is a directory in .config_scripts/. If no directories are
@@ -57,8 +62,10 @@ shift $((OPTIND-1))
 
 # If a file already exists, determine whether to overwrite it
 function check_exists() {
-if [[ -e $1 && "$FORCE" != true ]]
+[ "$FORCE" = true ] && return 1
+if [ -e $1 ]
 then
+	[ "$FORCENO" = true ] && return 0
 	read -p "File '$1' already exists. Overwrite? [y]/n " OVERWRITE
 	OVERWRITE=${OVERWRITE:-y}
 	OVERWRITE=${OVERWRITE:0:1}
@@ -164,3 +171,5 @@ done
 
 unset FORCE
 unset QUIET
+unset FORCENO
+unset VERBOSE

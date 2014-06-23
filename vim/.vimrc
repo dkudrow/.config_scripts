@@ -148,11 +148,12 @@ endfunction
 call StatuslineDark()
 
 " Status flags
-set statusline=%<			" Truncate at the beginning
+set statusline=			" Beginning of statusline
 set statusline+=%#StBuffer#
 set statusline+=[%n]	" Buffer number
 set statusline+=%#StFilename#
-set statusline+=\ \"%F\"\ 	" Filename with full path
+set statusline+=\ \"%<	" Truncate the filename
+set statusline+=%F\"\ 	" Filename with full path
 set statusline+=%m		" Modified flag
 set statusline+=%#StFlags#
 set statusline+=%r			" Readonly flag
