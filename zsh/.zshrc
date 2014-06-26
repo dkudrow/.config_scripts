@@ -52,6 +52,7 @@ plugins=(\
 	brew \
 	bundler \
 	git \
+	puppet \
 	rails \
 	ruby \
 	tmux \
