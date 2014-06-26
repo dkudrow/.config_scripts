@@ -13,3 +13,6 @@
 [submodule "vim/.vim/bundle/puppet-syntax-vim"]
 	path = vim/.vim/bundle/puppet-syntax-vim
 	url = https://github.com/puppetlabs/puppet-syntax-vim.git
+[submodule "zsh/custom/plugins/puppet"]
+	path = zsh/custom/plugins/puppet
+	url = https://github.com/dkudrow/puppet-completion-zsh.git
