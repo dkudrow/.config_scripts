@@ -142,6 +142,10 @@ done
 #
 ######################################################################
 
+# Pull the submodules from git
+git submodule init
+git submodule update
+
 # Determine which files to install
 if [ $# -eq 0 ]
 then

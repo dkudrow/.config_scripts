@@ -309,7 +309,10 @@ if !exists('autocommands_loaded')
 		\	exe "normal! g`\"" |
 		\ endif
 
+	" What the fuck is modula2?
+	autocmd BufRead,BufNewFile *.md set filetype=markdown
+
 	" Recognize Arduino files
-	autocmd BufRead, BufNewFile *.pde set filetype=arduino
-	autocmd BufRead, BufNewFile *.ino set filetype=arduino
+	autocmd BufRead,BufNewFile *.pde set filetype=arduino
+	autocmd BufRead,BufNewFile *.ino set filetype=arduino
 endif " !exists('autocommands_loaded')
