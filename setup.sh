@@ -17,9 +17,10 @@ export CONFIG_SCRIPTS=~/.config_scripts/
 export FORCE=false
 export FORCENO=false
 export QUIET=false
+export UPDATE=false
 export VERBOSE=false
 
-while getopts :fnqv OPT; do
+while getopts :fnquv OPT; do
 	case $OPT in
 		f) # -f	Force all files to be overwritten
 			FORCE=true
@@ -29,6 +30,9 @@ while getopts :fnqv OPT; do
 			;;
 		q) # -q	Only write to screen to request user input
 			QUIET=true
+			;;
+		u) # -u	Pull changes from the git repositories
+			UPDATE=true
 			;;
 		v) # -v	Print every shell command
 			VERBOSE=true
@@ -41,6 +45,7 @@ Install configuration scripts from .config_scripts repository
   -f	force all existing files to be overwritten
   -q	suppress output
   -n	do not overwrite any existing files
+  -u	pull changes from the git repositories
   -v	print all shell commands executed
 
 Each DIR is a directory in .config_scripts/. If no directories are
@@ -143,8 +148,12 @@ done
 ######################################################################
 
 # Pull the submodules from git
-git submodule init
-git submodule update
+if [ $UPDATE = true ]
+then
+	git pull
+	git submodule init
+	git submodule update
+fi
 
 # Determine which files to install
 if [ $# -eq 0 ]
