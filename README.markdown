@@ -2,9 +2,9 @@
 Some scripts to ease the pain of migrating to a new machine.
 
 ## Installation
-1. Clone `.config_scripts` into your filesystem.
+1. Clone `.dotfiles` into your filesystem.
 
-		git clone https://github.com/dkudrow/.config_scripts.git
+		git clone https://github.com/dkudrow/.dotfiles.git
 
 2. Clone the submodules.
 
@@ -13,11 +13,11 @@ Some scripts to ease the pain of migrating to a new machine.
 
 3. Move the directory to a location where it can remain unmoved. Changing the location will break symbolic links.
 
-		mv .config_scripts /path/to/final/resting/place
+		mv .dotfiles /path/to/final/resting/place
 
 4. Change to the top-level directory in the repository.
 
-		cd /path/to/final/resting/place/.config_scripts
+		cd /path/to/final/resting/place/.dotfiles
 
 5. Run the setup script (use `-h` to see options).
 
@@ -26,9 +26,9 @@ Some scripts to ease the pain of migrating to a new machine.
 ## Adding configurations
 Adding a set of configuration files is pretty simple:
 
-1. Create a directory in `.config_scripts` and `cd` into it.
+1. Create a directory in `.dotfiles` and `cd` into it.
 
-		cd /path/to/.config_scripts
+		cd /path/to/.dotfiles
 		mkdir my_new_config
 
 2. Create a copy of the directory tree containing the config files.
@@ -41,7 +41,7 @@ Adding a set of configuration files is pretty simple:
 
 		> setup.sh
 	
-4. `REPO_DIR` is the directory in `.config_scripts` where the new config files will live.
+4. `REPO_DIR` is the directory in `.dotfiles` where the new config files will live.
 
 		echo "REPO_DIR=my_new_config" >> setup.sh
 
@@ -62,10 +62,10 @@ Adding a set of configuration files is pretty simple:
 ## Adding vim-pathogen plugins
 To add a plugin, simply add it as a git submodule:
 
-		cd /path/to/.config_scripts
+		cd /path/to/.dotfiles
 		git submodule add https://github.com/scrooloose/nerdtree.git vim/.vim/bundle/nerdtree
 
-When cloning `.config_scripts` on a fresh machine, run:
+When cloning `.dotfiles` on a fresh machine, run:
 
 		git submodule init
 		git submodule update

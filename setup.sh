@@ -6,7 +6,7 @@
 #
 ######################################################################
 
-export CONFIG_SCRIPTS=~/.config_scripts/
+export CONFIG_SCRIPTS=~/.dotfiles/
 
 ######################################################################
 #
@@ -40,7 +40,7 @@ while getopts :fnquv OPT; do
 		*) # Show usage message
 			cat << EOF
 Usage: ./setup.sh [OPTION]... [DIR]...
-Install configuration scripts from .config_scripts repository
+Install configuration scripts from .dotfiles repository
 
   -f	force all existing files to be overwritten
   -q	suppress output
@@ -48,7 +48,7 @@ Install configuration scripts from .config_scripts repository
   -u	pull changes from the git repositories
   -v	print all shell commands executed
 
-Each DIR is a directory in .config_scripts/. If no directories are
+Each DIR is a directory in .dotfiles/. If no directories are
 specified, all directories will be installed by default.
 EOF
 			exit 1
