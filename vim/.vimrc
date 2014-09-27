@@ -6,6 +6,8 @@
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"TODO: add mapping to turn on `set fo+=a'
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Functions
@@ -18,6 +20,15 @@ function! ToggleSpell()
 		setlocal nospell
 	else
 		setlocal spell spelllang=en_us
+	endif
+endfunction
+
+" Toggle paragraph formatting
+function! TogglePFormat()
+	if &formatoptions =~ 'a'
+		setlocal formatoptions-=a
+	else
+		setlocal formatoptions+=a
 	endif
 endfunction
 
@@ -71,8 +82,11 @@ noremap te :tabedit
 noremap tn :tabnext<CR>
 noremap tp :tabprevious<CR>
 
-" Make a spelling hotkey
+" Toggle spelling
 noremap ,s :call ToggleSpell()<CR>
+
+" Toggle automatic paragraph formatting
+noremap ,a :call TogglePFormat()<CR>
 
 " Remove trailing whitespace
 noremap ,w :%s/ \+$//g
@@ -109,6 +123,14 @@ set wrapmargin=1		" chars from the right where wrapping starts
 
 function! GetEt()
 	if &expandtab | return '[et]' | else | return '' | endif
+endfunction
+
+function! GetSpell()
+	if &spell | return '[spell]' | else | return '' | endif
+endfunction
+
+function! GetAutoP()
+	if &fo =~ 'a' | return '[¶]' | else | return '' | endif
 endfunction
 
 " Highlight groups
@@ -168,6 +190,8 @@ set statusline+=%-1.(%)				" Pad
 set statusline+=[tw=%{&textwidth}]	" Show textwidth
 set statusline+=[ts=%{&tabstop}]	" Show tabstop
 set statusline+=%{GetEt()}			" Show expandtab
+set statusline+=%{GetSpell()}		" Show spell check
+set statusline+=%{GetAutoP()}		" Show auto paragraph formatting
 
 " Position
 set statusline+=%=			" Separation between left- and right-align
@@ -201,6 +225,7 @@ set mousehide	  		" hide mouse pointer while typing
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set backspace=indent,eol,start 	" how backspace works at start of line
+set formatoptions+=n	" automatically reformat paragrahps, ordered lists
 set matchtime=4	  		" tenths of a second to show matching paren
 set nojoinspaces		" two spaces after a period with a join command
 set nostartofline		" commands move cursor to first non-blank in line
@@ -273,6 +298,10 @@ if !exists('autocommands_loaded')
 		\ call SetTab(8) |
 		\ retab
 
+	" C
+	autocmd FileType c
+		\ call SetTab(8)
+
 	" Help
 	autocmd FileType help
 		\ setlocal keywordprg=:help
@@ -315,4 +344,7 @@ if !exists('autocommands_loaded')
 	" Recognize Arduino files
 	autocmd BufRead,BufNewFile *.pde set filetype=arduino
 	autocmd BufRead,BufNewFile *.ino set filetype=arduino
+
+	" .h files are C not C++
+	autocmd BufRead,BufNewFile *.h set filetype=c
 endif " !exists('autocommands_loaded')
