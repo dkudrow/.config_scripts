@@ -65,7 +65,7 @@ set t_Co=256
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Make ',' the leader
-set mapleader = ","
+let mapleader = ","
 
 " Y should act like C, D, etc.	
 noremap Y y$
