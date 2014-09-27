@@ -6,8 +6,6 @@
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"TODO: add mapping to turn on `set fo+=a'
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Functions
@@ -23,7 +21,7 @@ function! ToggleSpell()
 	endif
 endfunction
 
-" Toggle paragraph formatting
+" Toggle auto paragraph formatting
 function! TogglePFormat()
 	if &formatoptions =~ 'a'
 		setlocal formatoptions-=a
@@ -66,6 +64,9 @@ set t_Co=256
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Make ',' the leader
+set mapleader = ","
+
 " Y should act like C, D, etc.	
 noremap Y y$
 
@@ -83,13 +84,13 @@ noremap tn :tabnext<CR>
 noremap tp :tabprevious<CR>
 
 " Toggle spelling
-noremap ,s :call ToggleSpell()<CR>
+noremap <leader>s :call ToggleSpell()<CR>
 
 " Toggle automatic paragraph formatting
-noremap ,a :call TogglePFormat()<CR>
+noremap <leader>a :call TogglePFormat()<CR>
 
 " Remove trailing whitespace
-noremap ,w :%s/ \+$//g
+noremap <leader>w :%s/ \+$//g
 
 " Search for selected text in visual mode
 vnoremap <silent> * :<C-U>
