@@ -284,54 +284,67 @@ execute pathogen#infect()
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Only load autocommands once
-if !exists('autocommands_loaded')
-	let autocommands_loaded = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Filetype specific commands
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-	" Assembly
+augroup arduino
+	autocmd!
+	autocmd BufRead,BufNewFile *.pde set filetype=arduino
+	autocmd BufRead,BufNewFile *.ino set filetype=arduino
+augroup END
+	
+augroup asm
+	autocmd!
 	autocmd FileType asm
 		\ call SetTab(8) |
 		\ retab
+augroup END
 
-	" C
+augroup c
+	autocmd!
+	autocmd BufRead,BufNewFile *.h set filetype=c
 	autocmd FileType c
 		\ call SetTab(8)
+augroup END
 
-	" Help
+augroup help
+	autocmd!
 	autocmd FileType help
 		\ setlocal keywordprg=:help
+augroup END
 
-	" LaTeX
+augroup tex
+	autocmd!
 	autocmd FileType latex,tex
 		\ setlocal ignorecase |
 		\ setlocal infercase
+augroup END
 
-	" Python
+augroup markdown
+	autocmd!
+	autocmd BufRead,BufNewFile *.md set filetype=markdown
+augroup END
+
+augroup python
+	autocmd!
 	autocmd FileType python
 		\ set expandtab |
 		\ retab
+augroup END
 
-	" Ruby
+augroup ruby
+	autocmd!
 	autocmd FileType ruby,eruby
 		\ call SetTab(2) |
 		\ set expandtab |
 		\ retab
+augroup END
 
-	" Vimscript
+augroup vim
+	autocmd!
 	autocmd FileType vim
 		\ setlocal keywordprg=:help
+augroup END
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Miscellaneous autocommands
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup misc
+	autocmd!
 
 	" Jump to last known cursor position
 	autocmd	BufReadPost *
@@ -339,13 +352,7 @@ if !exists('autocommands_loaded')
 		\	exe "normal! g`\"" |
 		\ endif
 
-	" What the fuck is modula2?
-	autocmd BufRead,BufNewFile *.md set filetype=markdown
-
-	" Recognize Arduino files
-	autocmd BufRead,BufNewFile *.pde set filetype=arduino
-	autocmd BufRead,BufNewFile *.ino set filetype=arduino
-
-	" .h files are C not C++
-	autocmd BufRead,BufNewFile *.h set filetype=c
-endif " !exists('autocommands_loaded')
+	" Read in skeleton files
+	autocmd BufNewFile *.* silent! execute '0r $HOME/.vim/templates/skeleton.'.expand("<afile>:e")
+	autocmd BufNewFile * silent! %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval(submatch(1))#ge
+augroup END
