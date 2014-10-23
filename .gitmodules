@@ -19,3 +19,6 @@
 [submodule "vim/.vim/bundle/cisco"]
 	path = vim/.vim/bundle/cisco
 	url = git@github.com:vim-scripts/cisco.vim.git
+[submodule "vim/.vim/bundle/vim-go"]
+	path = vim/.vim/bundle/vim-go
+	url = https://github.com/fatih/vim-go.git
