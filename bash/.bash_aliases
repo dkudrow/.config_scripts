@@ -8,8 +8,7 @@
 
 # SSH aliases
 alias csil='ssh dkudrow@csil.cs.ucsb.edu'
-alias ec2='ssh -i ~/.ssh/dani-aws -l ec2-user '
-alias ub='ssh -i ~/.ssh/dani-aws -l ubuntu '
+alias csil='ssh dkudrow@$(ssh dkudrow@csil.cs.ucsb.edu "~/bin/csil_hosts")'
 
 alias rm='rm -i'
 
