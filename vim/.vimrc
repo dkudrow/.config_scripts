@@ -334,6 +334,7 @@ augroup END
 augroup python
 	autocmd!
 	autocmd FileType python
+		\ call SetTab(4) |
 		\ set expandtab |
 		\ retab
 augroup END
