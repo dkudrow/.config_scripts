@@ -159,6 +159,15 @@ function! StatuslineLight()
 	highlight StPosition term=bold cterm=bold ctermbg=DarkGrey ctermfg=White
 endfunction
 
+function! StatuslineClear()
+	highlight StBuffer term=bold cterm=bold ctermbg=Black ctermfg=DarkGrey
+	highlight StFilename term=bold cterm=bold ctermbg=Black ctermfg=Red
+	highlight StModified term=bold cterm=bold ctermbg=Black ctermfg=Red
+	highlight StFlags term=bold cterm=bold ctermbg=Black ctermfg=DarkGrey
+	highlight StOptions term=bold cterm=bold ctermbg=Black ctermfg=DarkGrey
+	highlight StPosition term=bold cterm=bold ctermbg=Black ctermfg=DarkGrey
+endfunction
+
 function! StatuslineBrown()
 	highlight StBuffer term=bold cterm=bold ctermbg=Brown ctermfg=White
 	highlight StFilename term=bold cterm=bold ctermbg=Brown ctermfg=LightCyan
