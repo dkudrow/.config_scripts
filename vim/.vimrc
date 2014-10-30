@@ -123,7 +123,7 @@ set wrapmargin=1		" chars from the right where wrapping starts
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! GetEt()
-	if &expandtab | return '[et]' | else | return '' | endif
+	if &expandtab | return '[⟺]' | else | return '' | endif
 endfunction
 
 function! GetSpell()
@@ -197,8 +197,8 @@ set statusline+=%q			" Quickfixes, locations, or empty
 set statusline+=%-.(%)
 set statusline+=%#StOptions#
 set statusline+=%-1.(%)				" Pad
-set statusline+=[tw=%{&textwidth}]	" Show textwidth
-set statusline+=[ts=%{&tabstop}]	" Show tabstop
+set statusline+=[↲%{&textwidth}]	" Show textwidth
+set statusline+=[⇌%{&tabstop}]	" Show tabstop
 set statusline+=%{GetEt()}			" Show expandtab
 set statusline+=%{GetSpell()}		" Show spell check
 set statusline+=%{GetAutoP()}		" Show auto paragraph formatting
