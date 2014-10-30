@@ -105,7 +105,7 @@ vnoremap <silent> * :<C-U>
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set background=light  	" "dark" or "light", used for highlight colors
+set background=dark  	" "dark" or "light", used for highlight colors
 "set colorcolumn=+1		" column(s) to highlight
 set cursorline	  		" highlight the screen line of the cursor
 set display=lastline  	" list of flags for how to display text
