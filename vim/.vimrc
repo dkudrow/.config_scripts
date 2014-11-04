@@ -127,7 +127,7 @@ function! GetEt()
 endfunction
 
 function! GetSpell()
-	if &spell | return '[spell]' | else | return '' | endif
+	if &spell | return '[✓'.&spelllang.']' | else | return '' | endif
 endfunction
 
 function! GetAutoP()
@@ -207,7 +207,7 @@ set statusline+=%{GetAutoP()}		" Show auto paragraph formatting
 set statusline+=%=			" Separation between left- and right-align
 set statusline+=%#StPosition#
 set statusline+=\ %L\ lines\ 
-set statusline+=%-.(--%l,%c--\ %)
+set statusline+=%-.(--%l,%v--\ %)
 "set statusline+=--%p%%--
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
