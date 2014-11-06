@@ -341,7 +341,7 @@ augroup END
 
 augroup ruby
 	autocmd!
-	autocmd FileType ruby,eruby
+	autocmd FileType ruby,eruby,puppet
 		\ call SetTab(2) |
 		\ set expandtab |
 		\ retab
