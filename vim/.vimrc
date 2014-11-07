@@ -107,7 +107,7 @@ vnoremap <silent> * :<C-U>
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set background=light  	" "dark" or "light", used for highlight colors
+set background=dark  	" "dark" or "light", used for highlight colors
 "set colorcolumn=+1		" column(s) to highlight
 set cursorline	  		" highlight the screen line of the cursor
 set display=lastline  	" list of flags for how to display text
@@ -125,11 +125,11 @@ set wrapmargin=1		" chars from the right where wrapping starts
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! GetEt()
-	if &expandtab | return '[et]' | else | return '' | endif
+	if &expandtab | return '[⟺]' | else | return '' | endif
 endfunction
 
 function! GetSpell()
-	if &spell | return '[spell]' | else | return '' | endif
+	if &spell | return '[✓'.&spelllang.']' | else | return '' | endif
 endfunction
 
 function! GetAutoP()
@@ -199,8 +199,8 @@ set statusline+=%q			" Quickfixes, locations, or empty
 set statusline+=%-.(%)
 set statusline+=%#StOptions#
 set statusline+=%-1.(%)				" Pad
-set statusline+=[tw=%{&textwidth}]	" Show textwidth
-set statusline+=[ts=%{&tabstop}]	" Show tabstop
+set statusline+=[↲%{&textwidth}]	" Show textwidth
+set statusline+=[⇌%{&tabstop}]	" Show tabstop
 set statusline+=%{GetEt()}			" Show expandtab
 set statusline+=%{GetSpell()}		" Show spell check
 set statusline+=%{GetAutoP()}		" Show auto paragraph formatting
@@ -209,7 +209,7 @@ set statusline+=%{GetAutoP()}		" Show auto paragraph formatting
 set statusline+=%=			" Separation between left- and right-align
 set statusline+=%#StPosition#
 set statusline+=\ %L\ lines\ 
-set statusline+=%-.(--%l,%c--\ %)
+set statusline+=%-.(--%l,%v--\ %)
 "set statusline+=--%p%%--
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -343,7 +343,7 @@ augroup END
 
 augroup ruby
 	autocmd!
-	autocmd FileType ruby,eruby
+	autocmd FileType ruby,eruby,puppet
 		\ call SetTab(2) |
 		\ set expandtab |
 		\ retab
