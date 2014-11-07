@@ -67,8 +67,10 @@ set t_Co=256
 " Make ',' the leader
 let mapleader = ","
 
-" Y should act like C, D, etc.	
+" V and Y should act like C, D, etc.	
 noremap Y y$
+noremap V v$
+noremap vv 0v$
 
 " Treat line wraps like breaks
 noremap j gj
