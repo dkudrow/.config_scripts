@@ -23,7 +23,7 @@ alias lf='ls -rt -d -1 $PWD/*'
 alias l='ls'
 
 # ps
-alias ps='ps -o user,pid,args'
+#alias ps='ps -o user,pid,args'
 
 # grep
 alias grep='grep --binary-files=without-match --color=auto'
