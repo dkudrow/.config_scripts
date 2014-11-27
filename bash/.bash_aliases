@@ -33,6 +33,9 @@ which rgrep &>/dev/null; [[ $? = 0 ]] || alias rgrep='grep -R'
 which hgrep &>/dev/null; [[ $? = 0 ]] || alias hgrep='history | grep'
 which pgrep &>/dev/null; [[ $? = 0 ]] || alias pgrep='ps -e | grep'
 
+# use ipython when available
+which ipython &> /dev/null && alias python='ipython'
+
 # clipboard
 alias cclip='xclip -selection "clipboard"'
 
