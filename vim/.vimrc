@@ -315,6 +315,14 @@ augroup c
 		\ call SetTab(8)
 augroup END
 
+augroup cpp
+	autocmd!
+	autocmd FileType cpp
+		\ call SetTab(2) |
+		\ set expandtab |
+		\ retab
+augroup END
+
 augroup help
 	autocmd!
 	autocmd FileType help
