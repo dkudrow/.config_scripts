@@ -85,6 +85,9 @@ noremap te :tabedit
 noremap tn :tabnext<CR>
 noremap tp :tabprevious<CR>
 
+" Open ctags in new tab
+"noremap <C-]> <C-w><C-]><C-w>T
+
 " Toggle spelling
 noremap <leader>s :call ToggleSpell()<CR>
 
@@ -94,12 +97,15 @@ noremap <leader>a :call TogglePFormat()<CR>
 " Remove trailing whitespace
 noremap <leader>w :%s/ \+$//g
 
+" Indent file
+noremap <leader>= mQgg=G`Q
+
 " Search for selected text in visual mode
 vnoremap <silent> * :<C-U>
-	\let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-	\gvy/<C-R><C-R>=substitute(
-	\escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-	\gV:call setreg('"', old_reg, old_regtype)<CR>
+			\let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+			\gvy/<C-R><C-R>=substitute(
+			\escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+			\gV:call setreg('"', old_reg, old_regtype)<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -193,7 +199,6 @@ set statusline+=%#StFlags#
 set statusline+=%r			" Readonly flag
 set statusline+=%y			" Filetype
 set statusline+=%w			" Preview window flag
-set statusline+=%q			" Quickfixes, locations, or empty
 
 " Options values
 set statusline+=%-.(%)
@@ -300,40 +305,45 @@ augroup arduino
 	autocmd BufRead,BufNewFile *.pde set filetype=arduino
 	autocmd BufRead,BufNewFile *.ino set filetype=arduino
 augroup END
-	
+
 augroup asm
 	autocmd!
 	autocmd FileType asm
-		\ call SetTab(8) |
-		\ retab
+				\ call SetTab(8) |
+				\ retab
 augroup END
 
 augroup c
 	autocmd!
 	autocmd BufRead,BufNewFile *.h set filetype=c
 	autocmd FileType c
-		\ call SetTab(8)
+				\ set noexpandtab |
+				\ call SetTab(8) |
+				\ retab
+			
 augroup END
 
 augroup cpp
 	autocmd!
 	autocmd FileType cpp
-		\ call SetTab(2) |
-		\ set expandtab |
-		\ retab
+				\ if expand('%:t')[-2:] !=  ".h" |
+				\	call SetTab(2) |
+				\	set expandtab |
+				\	retab |
+				\ endif
 augroup END
 
 augroup help
 	autocmd!
 	autocmd FileType help
-		\ setlocal keywordprg=:help
+				\ setlocal keywordprg=:help
 augroup END
 
 augroup tex
 	autocmd!
 	autocmd FileType latex,tex
-		\ setlocal ignorecase |
-		\ setlocal infercase
+				\ setlocal ignorecase |
+				\ setlocal infercase
 augroup END
 
 augroup markdown
@@ -344,23 +354,23 @@ augroup END
 augroup python
 	autocmd!
 	autocmd FileType python
-		\ call SetTab(4) |
-		\ set expandtab |
-		\ retab
+				\ call SetTab(4) |
+				\ set expandtab |
+				\ retab
 augroup END
 
 augroup ruby
 	autocmd!
 	autocmd FileType ruby,eruby,puppet
-		\ call SetTab(2) |
-		\ set expandtab |
-		\ retab
+				\ call SetTab(2) |
+				\ set expandtab |
+				\ retab
 augroup END
 
 augroup vim
 	autocmd!
 	autocmd FileType vim
-		\ setlocal keywordprg=:help
+				\ setlocal keywordprg=:help
 augroup END
 
 augroup misc
@@ -368,9 +378,9 @@ augroup misc
 
 	" Jump to last known cursor position
 	autocmd	BufReadPost *
-		\ if line("'\"") > 1 && line("'\"") |
-		\	exe "normal! g`\"" |
-		\ endif
+				\ if line("'\"") > 1 && line("'\"") |
+				\	exe "normal! g`\"" |
+				\ endif
 
 	" Read in skeleton files
 	autocmd BufNewFile *.* silent! execute '0r $HOME/.vim/templates/skeleton.'.expand("<afile>:e")
