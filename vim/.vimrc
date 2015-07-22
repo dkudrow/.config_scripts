@@ -358,9 +358,8 @@ augroup c
 	autocmd!
 	autocmd BufRead,BufNewFile *.h set filetype=c
 	autocmd FileType c
-				\ set noexpandtab |
-				\ call SetTab(8) |
-				\ retab
+				\ call SetTab(4) |
+				\ set expandtab
 			
 augroup END
 
