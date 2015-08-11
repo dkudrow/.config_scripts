@@ -43,6 +43,15 @@ function! GetColor()
 	return c
 endfunction
 
+" Toggle colorcolumn
+function! ToggleCC()
+        if &cc == ""
+                setlocal cc=+1
+        else
+                setlocal cc=
+        endif
+endfunction
+
 " Toggle hex editor
 command -bar Hexmode call ToggleHex()
 function ToggleHex()
@@ -135,11 +144,17 @@ noremap <leader>s :call ToggleSpell()<CR>
 " Toggle automatic paragraph formatting
 noremap <leader>a :call TogglePFormat()<CR>
 
+" Toggle colorcolumn
+noremap <leader>C :call ToggleCC()<CR>
+
 " Remove trailing whitespace
 noremap <leader>w :%s/ \+$//g
 
 " Indent file
 noremap <leader>= mQgg=G`Q
+
+" Search and replace word under cursor
+nnoremap <Leader>r :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 " Search for selected text in visual mode
 vnoremap <silent> * :<C-U>
@@ -193,11 +208,11 @@ function! StatuslineSolarized()
 endfunction
 
 function! StatuslineDark()
-	highlight StBuffer term=bold cterm=None ctermbg=DarkBlue ctermfg=Red
-	highlight StFilename term=bold cterm=bold ctermbg=DarkBlue ctermfg=Cyan
-	highlight StFlags term=bold cterm=None ctermbg=DarkBlue ctermfg=Red
-	highlight StOptions term=bold cterm=None ctermbg=DarkBlue ctermfg=Cyan
-	highlight StPosition term=bold cterm=bold ctermbg=DarkBlue ctermfg=Yellow
+	highlight StBuffer term=bold cterm=None ctermbg=DarkGrey ctermfg=Black
+	highlight StFilename term=bold cterm=bold ctermbg=DarkGrey ctermfg=Cyan
+	highlight StFlags term=bold cterm=None ctermbg=DarkGrey ctermfg=Black
+	highlight StOptions term=bold cterm=None ctermbg=DarkGrey ctermfg=Black
+	highlight StPosition term=bold cterm=bold ctermbg=DarkGrey ctermfg=White
 endfunction
 
 function! StatuslineLight()
@@ -319,14 +334,6 @@ set suffixes+=.backup  	" suffixes that are ignored with multiple match
 set updatecount=100  	" after this many characters flush swap file
 set updatetime=2000  	" after this many milliseconds flush swap file
 set virtualedit=block  	" when to use virtual editing
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" NERDComment
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let NERD_c_alt_style=1  " default to C++ style line comments for C
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
