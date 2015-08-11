@@ -44,14 +44,13 @@ ZSH_CUSTOM=$HOME/.dotfiles/zsh/custom
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(\
-	brew \
-	bundler \
-	git \
-	puppet \
-	rails \
-	ruby \
-	tmux \
+plugins=(                   \
+    brew                    \
+    git                     \
+    ruby                    \
+    tmux                    \
+    zsh-syntax-highlighting \
+    zsh-autosuggestions     \
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -68,6 +67,12 @@ export EDITOR=vim
 
 # Get local config optinos
 source $HOME/.zshrc.local
+
+# zsh-autosuggestions
+zle-line-init() {
+    zle autosuggest-start
+}
+zle -N zle-line-init
 
 # Make sure we get .bash_aliases
 source ~/.bash_aliases
