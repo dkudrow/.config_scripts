@@ -7,6 +7,10 @@ export ZSH=$HOME/.dotfiles/zsh/oh-my-zsh
 # time that oh-my-zsh is loaded.
 ZSH_THEME="dkudrow"
 
+# zsh options
+setopt noincappendhistory
+setopt appendhistory
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -44,13 +48,13 @@ ZSH_CUSTOM=$HOME/.dotfiles/zsh/custom
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
+    #zsh-autosuggestions     \
+	#zsh-syntax-highlighting \
 plugins=(                   \
     brew                    \
     git                     \
     ruby                    \
     tmux                    \
-    zsh-syntax-highlighting \
-    zsh-autosuggestions     \
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -69,10 +73,12 @@ export EDITOR=vim
 source $HOME/.zshrc.local
 
 # zsh-autosuggestions
-zle-line-init() {
-    zle autosuggest-start
-}
-zle -N zle-line-init
+#zle-line-init() {
+    #zle autosuggest-start
+#}
+#zle -N zle-line-init
+#AUTOSUGGESTION_ACCEPT_RIGHT_ARROW=1
+#bindkey '^t' autosuggest-toggle
 
 # Make sure we get .bash_aliases
 source ~/.bash_aliases

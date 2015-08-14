@@ -18,6 +18,13 @@ alias ll='ls -Al'
 alias la='ls -AF'
 alias lf='ls -rt -d -1 $PWD/*'
 alias l='ls'
+lx() {
+	local d
+	local a
+	d="${1:-.}"
+	a="${*:2}"
+	ls $a $d/*(.x)
+}
 
 # grep
 alias grep='grep --binary-files=without-match --color=auto'
