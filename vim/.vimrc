@@ -31,6 +31,7 @@ function! TogglePFormat()
 endfunction
 
 " Change tab width
+command -nargs=1 SetTab call SetTab(<f-args>)
 function! SetTab(width)
     execute "setlocal tabstop=".a:width
     execute "setlocal shiftwidth=".a:width
@@ -381,11 +382,7 @@ augroup END
 augroup cpp
     autocmd!
     autocmd FileType cpp
-                \ if expand('%:t')[-2:] !=  ".h" |
-                \   call SetTab(2) |
-                \   set expandtab |
-                \   retab |
-                \ endif
+                \   call SetTab(4)
 augroup END
 
 augroup help
