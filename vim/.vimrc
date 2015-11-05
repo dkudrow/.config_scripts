@@ -38,6 +38,14 @@ function! SetTab(width)
     execute "setlocal softtabstop=".a:width
 endfunction
 
+" Change tab width to accommodate MULTI craziness
+command Multi call MultiTab()
+function! MultiTab()
+	execute "set sw=4"
+	execute "set ts=8"
+	execute "set et"
+endfunction
+
 " Get the number of terminal colors
 function! GetColor()
     let c = split(system('tput colors'))[0]

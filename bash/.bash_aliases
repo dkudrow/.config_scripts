@@ -31,6 +31,25 @@ lx() {
 	ls $a $d/*(.x)
 }
 
+# git
+alias gad='git add'
+alias gbr='git branch'
+alias gch='git checkout'
+alias gcl='git clone'
+alias gco='git commit'
+alias gcp='git cp'
+alias gdi='git diff'
+alias gin='git init'
+alias gme='git merge'
+alias gmv='git mv'
+alias gpl='git pull'
+alias gps='git push'
+alias grb='git rebase'
+alias grs='git reset'
+alias grm='git rm'
+alias gst='git status'
+alias gig='vim .gitignore'
+
 # grep
 alias grep='grep --binary-files=without-match --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -57,3 +76,8 @@ bashed() {
 tmuxed() {
 	[[ $1 = '-l' ]] && vim ~/.tmux.conf.local || vim ~/.tmux.conf
 }
+
+vimed() {
+	[[ $1 = '-l' ]] && vim ~/.vimrc.local || vim ~/.vimrc
+}
+
