@@ -25,3 +25,6 @@
 [submodule "zsh/custom/plugins/zsh-autosuggestions"]
 	path = zsh/custom/plugins/zsh-autosuggestions
 	url = https://github.com/tarruda/zsh-autosuggestions.git
+[submodule "vim/.vim/bundle/jedi-vim"]
+	path = vim/.vim/bundle/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim.git
