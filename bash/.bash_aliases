@@ -13,14 +13,14 @@ alias tmux='tmux -2'
 
 # ls
 if [ $(uname) = 'Darwin' ]; then
-	alias ls='ls -G -F -v'
+	alias ls='ls -G'
 else
-	alias ls='ls --color=auto -F -v'
+	alias ls='ls --color=auto'
 fi
 alias ll='ls -Al'
 alias la='ls -AF'
 alias lf='ls -rt -d -1 $PWD/*'
-alias l='ls'
+alias l='ls -F -v'
 
 # List only executables
 lx() {
@@ -59,7 +59,8 @@ which hgrep &>/dev/null; [[ $? = 0 ]] || alias hgrep='history | grep'
 which pgrep &>/dev/null; [[ $? = 0 ]] || alias pgrep='ps -e | grep'
 
 # Use ipython when available.
-which ipython &> /dev/null && alias python='ipython'
+#which ipython &> /dev/null && alias python='ipython'
+alias ipy='ipython'
 
 # clipboard
 alias cclip='xsel -b -i'

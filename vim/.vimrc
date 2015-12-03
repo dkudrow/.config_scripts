@@ -156,6 +156,12 @@ noremap <leader>a :call TogglePFormat()<CR>
 " Toggle colorcolumn
 noremap <leader>C :call ToggleCC()<CR>
 
+" Toggle pastemode
+noremap <leader>p :set invpaste<CR>
+
+" Toggle cursorline
+noremap <leader>L :set invcursorline<CR>
+
 " Remove trailing whitespace
 noremap <leader>w :%s/ \+$//g
 
@@ -315,7 +321,7 @@ set nrformats+=alpha    " number formats recognized for CTRL-A command
 set shiftround          " round indent to multiple of shiftwidth
 set showfulltag         " show full tag pattern when completing tag
 set showmatch           " briefly jump to matching bracket if insert one
-set textwidth=75
+set textwidth=80
 call SetTab(4)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
