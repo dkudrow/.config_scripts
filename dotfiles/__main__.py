@@ -14,7 +14,6 @@ def main():
             help='Force all existing files to be overwritten')
     parser.add_argument('-p', action='store_true', help='Pull upstream changes')
     parser.add_argument('-q', action='store_true', help='Quiet output')
-    parser.add_argument('-d', default='', help='Directory containing dotfiles')
     parser.add_argument('-v', action='store_true', help='Verbose output')
     parser.add_argument('configs', nargs='*',
             help='Configurations to update, omit to update all')
@@ -25,12 +24,7 @@ def main():
     params['quiet'] = args.q
     params['verbose'] = args.v
     params['cfgs'] = args.configs
-
-    if not args.d:
-        params['root'] = os.path.dirname(__file__)
-    else:
-        params['root'] = args.d
-    params['root'] = os.path.abspath(params['root'])
+    params['root'] = os.path.abspath(os.path.dirname(__file__))
 
     if params['pull']:
         try:
