@@ -1,30 +1,12 @@
-[submodule "vim/pathogen"]
-	path = vim/pathogen
-	url = https://github.com/tpope/vim-pathogen.git
 [submodule "zsh/oh-my-zsh"]
-	path = zsh/oh-my-zsh
+	path = dotfiles/zsh/oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
-[submodule "vim/.vim/bundle/nerdtree"]
-	path = vim/.vim/bundle/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
-[submodule "vim/.vim/bundle/nerdcommenter"]
-	path = vim/.vim/bundle/nerdcommenter
-	url = https://github.com/scrooloose/nerdcommenter.git
-[submodule "vim/.vim/bundle/puppet-syntax-vim"]
-	path = vim/.vim/bundle/puppet-syntax-vim
-	url = https://github.com/puppetlabs/puppet-syntax-vim.git
-[submodule "zsh/custom/plugins/puppet"]
-	path = zsh/custom/plugins/puppet
-	url = https://github.com/dkudrow/puppet-completion-zsh.git
-[submodule "vim/.vim/bundle/vim-go"]
-	path = vim/.vim/bundle/vim-go
-	url = https://github.com/fatih/vim-go.git
 [submodule "zsh/custom/plugins/zsh-syntax-highlighting"]
-	path = zsh/custom/plugins/zsh-syntax-highlighting
+	path = dotfiles/zsh/custom/plugins/zsh-syntax-highlighting
 	url = https://github.com/jimmijj/zsh-syntax-highlighting.git
 [submodule "zsh/custom/plugins/zsh-autosuggestions"]
-	path = zsh/custom/plugins/zsh-autosuggestions
+	path = dotfiles/zsh/custom/plugins/zsh-autosuggestions
 	url = https://github.com/tarruda/zsh-autosuggestions.git
-[submodule "vim/.vim/bundle/jedi-vim"]
-	path = vim/.vim/bundle/jedi-vim
-	url = https://github.com/davidhalter/jedi-vim.git
+[submodule "dotfiles/vim/vim-plug"]
+	path = dotfiles/vim/vim-plug
+	url = https://github.com/junegunn/vim-plug.git
