@@ -24,7 +24,7 @@ def setup(params, cfgdir):
         dst = os.path.join(tmpldst, f)
         ln(src, dst, params)
 
-    plugsrc = os.path.join(cfgdir, 'vim-plug', 'autoload', 'plug.vim')
+    plugsrc = os.path.join(cfgdir, 'vim-plug', 'plug.vim')
     plugdst = os.path.join(vimdst, 'autoload', 'plug.vim')
     ln(plugsrc, plugdst, params)
 

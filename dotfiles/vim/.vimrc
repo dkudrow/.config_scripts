@@ -35,7 +35,7 @@ command -nargs=1 SetTab call SetTab(<f-args>)
 function! SetTab(width)
     execute "setlocal tabstop=".a:width
     execute "setlocal shiftwidth=".a:width
-    execute "setlocal softtabstop=".a:width
+    "execute "setlocal softtabstop=".a:width
 endfunction
 
 " Change tab width to accommodate MULTI craziness
@@ -44,6 +44,14 @@ function! MultiTab()
 	execute "set sw=4"
 	execute "set ts=8"
 	execute "set et"
+endfunction
+
+" Change tab width to accommodate Linux source files
+command Linux call LinuxTab()
+function! LinuxTab()
+	execute "set sw=8"
+	execute "set ts=8"
+	execute "set noet"
 endfunction
 
 " Get the number of terminal colors
@@ -147,6 +155,9 @@ noremap tp :tabprevious<CR>
 " Open ctags in new tab
 "noremap <C-]> <C-w><C-]><C-w>T
 
+" New buffer in window
+noremap <leader>n :enew<CR>
+
 " Toggle spelling
 noremap <leader>s :call ToggleSpell()<CR>
 
@@ -201,6 +212,10 @@ set wrapmargin=1        " chars from the right where wrapping starts
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+function! GetPaste()
+	if &paste | return '[✂]' | else | return '' | endif
+endfunction
+
 function! GetEt()
     if &expandtab | return '[⟺]' | else | return '' | endif
 endfunction
@@ -211,6 +226,10 @@ endfunction
 
 function! GetAutoP()
     if &fo =~ 'a' | return '[¶]' | else | return '' | endif
+endfunction
+
+function! GetICase()
+    if &ignorecase | return '[Aa]' | else | return '' | endif
 endfunction
 
 " Highlight groups
@@ -277,9 +296,11 @@ set statusline+=%#StOptions#
 set statusline+=%-1.(%)\         " Pad
 set statusline+=[↲%{&textwidth}] " Show textwidth
 set statusline+=[⇌%{&tabstop}]   " Show tabstop
+set statusline+=%{GetPaste()}       " Show expandtab
 set statusline+=%{GetEt()}       " Show expandtab
 set statusline+=%{GetSpell()}    " Show spell check
 set statusline+=%{GetAutoP()}    " Show auto paragraph formatting
+set statusline+=%{GetICase()}    " Show ignorecase
 
 " Position
 set statusline+=%=          " Separation between left- and right-align
@@ -296,6 +317,64 @@ set statusline+=%-.(--%l,%v--\ %)
 
 set hlsearch            " highlight matches with last search pattern
 set incsearch           " highlight match while typing search pattern
+
+" Allow multiple searches at once
+" Search         xxx term=reverse ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
+highlight Search1  term=reverse ctermfg=0 ctermbg=9  guifg=Black guibg=Red
+highlight Search2  term=reverse ctermfg=0 ctermbg=10  guifg=Black guibg=Green
+highlight Search3  term=reverse ctermfg=0 ctermbg=15  guifg=Black guibg=White
+
+let SearchPatterns = ["", "", ""]
+
+function! MultiSearchRedraw()
+	execute "match  Search1 /" . get(g:SearchPatterns, 0) . "/"
+	execute "2match Search2 /" . get(g:SearchPatterns, 1) . "/"
+	execute "3match Search3 /" . get(g:SearchPatterns, 2) . "/"
+endfunction
+
+" MultiSearch
+function! MultiSearchAdd(pattern)
+	let i = 0
+	while i < 3
+		if empty(get(g:SearchPatterns, i))
+			let g:SearchPatterns[i] = a:pattern
+			call MultiSearchRedraw()
+			return
+		endif
+		let i += 1
+	endwhile
+	echo "SearchPatterns is full:"
+	call MultiSearchList()
+endfunction
+
+function! MultiSearchClear(...)
+	if len(a:000) == 0
+		let g:SearchPatterns = ["", "", ""]
+	else
+		for i in a:000
+			let g:SearchPatterns[i] = ""
+		endfor
+	endif
+	call MultiSearchRedraw()
+endfunction
+
+function! MultiSearchSet(i, pattern)
+	let g:SearchPatterns[i] = a:pattern
+	call MultiSearchRedraw()
+endfunction
+
+function! MultiSearchList()
+	let i = 0
+	while i < 3
+		echo i . ": " . get(g:SearchPatterns, i, "")
+		let i += 1
+	endwhile
+endfunction
+
+command! -nargs=1 MSAdd   call MultiSearchAdd(<f-args>)
+command! -nargs=? MSClear call MultiSearchClear(<f-args>)
+command! -nargs=0 MSList  call MultiSearchList()
+command! -nargs=+ MSSet   call MultiSearchSet(<f-args>)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -322,6 +401,7 @@ set shiftround          " round indent to multiple of shiftwidth
 set showfulltag         " show full tag pattern when completing tag
 set showmatch           " briefly jump to matching bracket if insert one
 set textwidth=80
+set softtabstop=-1
 call SetTab(4)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -362,14 +442,29 @@ source ~/.vimrc.local
 " Enable filetype detection and load associated plugins and indentation
 filetype plugin indent on
 
-" Pathogen runtime path manipulation
-execute pathogen#infect()
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" vim-plug
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'scrooloose/nerdcommenter'
+
+call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Autocommands
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+augroup log
+	autocmd!
+	autocmd BufRead, BufNewFile *.log set filetyp=log
+	set nowrap
+augroup END
 
 augroup arduino
     autocmd!
