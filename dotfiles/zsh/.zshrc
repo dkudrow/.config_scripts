@@ -68,10 +68,12 @@ export PATH=/usr/local/bin:$PATH
 # export LANG=en_US.UTF-8
 
 # User configuration
-export EDITOR=vim
+export EDITOR=vi
 
 # Get local config optinos
 source $HOME/.zshrc.local
+
+bindkey '^U' backward-kill-line
 
 # zsh-autosuggestions
 #zle-line-init() {
