@@ -14,7 +14,6 @@ def setup(params, cfgdir):
 
     vimsrc = os.path.join(cfgdir, '.vim')
     vimdst = os.path.join(HOME, '.vim')
-    mkdirp(vimdst)
 
     tmplsrc = os.path.join(vimsrc, 'templates')
     tmpldst = os.path.join(vimdst, 'templates')
@@ -24,8 +23,10 @@ def setup(params, cfgdir):
         dst = os.path.join(tmpldst, f)
         ln(src, dst, params)
 
+    autoloaddst = os.path.join(vimdst, 'autoload')
+    mkdirp(autoloaddst)
     plugsrc = os.path.join(cfgdir, 'vim-plug', 'plug.vim')
-    plugdst = os.path.join(vimdst, 'autoload', 'plug.vim')
+    plugdst = os.path.join(autoloaddst, 'plug.vim')
     ln(plugsrc, plugdst, params)
 
 

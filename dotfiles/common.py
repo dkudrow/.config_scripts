@@ -36,6 +36,7 @@ def mkdirp(path):
 def ln(src, dst, params):
     force = params['force']
     cmd = 'ln -s {} {}'.format(src, dst).split()
+
     # lexists() returns True for broken symlinks
     if not force and os.path.lexists(dst):
         resp = raw_input('Overwrite {} (Y/n)? [Y] '.format(dst))
@@ -45,12 +46,20 @@ def ln(src, dst, params):
             force = True
 
     if force:
+        try:
+            # If the destination exists and is a symlink we must remove it.
+            # Otherwise ln will try to follow the link.
+            os.remove(dst)
+            print 'remove succeeded'
+        except OSError:
+            print 'remove failed'
+            pass
         cmd.insert(1, '-f')
 
     rc = check_call(params, cmd)
 
     if not rc and not params['quiet']:
-        print '{} -> {}'.format(src, dst)
+        print '{} -> {}'.format(dst, src)
         
 
 def touch(path, params):

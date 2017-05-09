@@ -24,12 +24,10 @@ alias l='ls -F -v'
 
 # List only executables
 lx() {
-	local d
-	local a
-	d="${1:-.}"
-	a="${*:2}"
-	ls $a $d/*(.x)
+	ls -F $@ | grep '\*$' | sed 's/.$//'
 }
+
+
 
 # git
 alias gad='git add'

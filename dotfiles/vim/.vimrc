@@ -189,6 +189,10 @@ vnoremap <silent> * :<C-U>
             \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
             \gV:call setreg('"', old_reg, old_regtype)<CR>
 
+" Format JSON
+vnoremap <Leader>j :!python -m json.tool<CR>
+nnoremap <Leader>j :%!python -m json.tool<CR>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Appearance
@@ -437,7 +441,10 @@ set virtualedit=block   " when to use virtual editing
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Import local settings
-source ~/.vimrc.local
+if filereadable("~/.vimrc.local")
+	source ~/.vimrc.local
+	echom "Warning: could not find ~/.vimrc.local"
+endif
 
 " Enable filetype detection and load associated plugins and indentation
 filetype plugin indent on
@@ -451,6 +458,7 @@ filetype plugin indent on
 call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdcommenter'
+Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
