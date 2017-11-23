@@ -55,6 +55,7 @@ alias egrep='egrep --color=auto'
 which rgrep &>/dev/null; [[ $? = 0 ]] || alias rgrep='grep -R'
 which hgrep &>/dev/null; [[ $? = 0 ]] || alias hgrep='history | grep'
 which pgrep &>/dev/null; [[ $? = 0 ]] || alias pgrep='ps -e | grep'
+alias ag='ack-grep'
 
 # Use ipython when available.
 #which ipython &> /dev/null && alias python='ipython'
