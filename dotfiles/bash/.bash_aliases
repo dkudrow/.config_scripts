@@ -48,14 +48,18 @@ alias grm='git rm'
 alias gst='git status'
 alias gig='vim .gitignore'
 
+#svn
+alias svnst='svn st --ignore-externals'
+
 # grep
 alias grep='grep --binary-files=without-match --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-which rgrep &>/dev/null; [[ $? = 0 ]] || alias rgrep='grep -R'
-which hgrep &>/dev/null; [[ $? = 0 ]] || alias hgrep='history | grep'
-which pgrep &>/dev/null; [[ $? = 0 ]] || alias pgrep='ps -e | grep'
-alias ag='ack-grep'
+which rgrep &>/dev/null || alias rgrep='grep -R'
+which hgrep &>/dev/null || alias hgrep='history | grep'
+which pgrep &>/dev/null || alias pgrep='ps -e | grep'
+which ag    &>/dev/null || alias    ag='ack-grep'
+which ack   &>/dev/null || alias   ack='ack-grep'
 
 # Use ipython when available.
 #which ipython &> /dev/null && alias python='ipython'

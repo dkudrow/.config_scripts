@@ -246,6 +246,7 @@ set statusline+=%-.(--%l,%v--\ %)
 
 set hlsearch            " highlight matches with last search pattern
 set incsearch           " highlight match while typing search pattern
+set ignorecase          " ignore case in searches
 
 " Allow multiple searches at once
 " Search         xxx term=reverse ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
@@ -370,6 +371,16 @@ set virtualedit=block   " when to use virtual editing
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
+" GUI options
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if has('gui_running')
+    set bg=light
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 " Startup
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -392,7 +403,7 @@ filetype plugin indent on
 call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdcommenter'
-Plug 'rust-lang/rust.vim'
+Plug 'mhinz/vim-signify'
 
 call plug#end()
 
