@@ -1,0 +1,8 @@
+hi clear
+set background=light
+
+let g:colors_name = "multi"
+
+hi Comment      guifg=Green
+hi PreProc      guifg=Blue
+hi Type         guifg=Blue  gui=NONE

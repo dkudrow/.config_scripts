@@ -29,4 +29,11 @@ def setup(params, cfgdir):
     plugdst = os.path.join(autoloaddst, 'plug.vim')
     ln(plugsrc, plugdst, params)
 
+    colorssrc = os.path.join(vimsrc, 'colors')
+    colorsdst = os.path.join(vimdst, 'colors')
+    mkdirp(colorsdst)
+    for f in os.listdir(colorssrc):
+        src = os.path.join(colorssrc, f)
+        dst = os.path.join(colorsdst, f)
+        ln(src, dst, params)
 

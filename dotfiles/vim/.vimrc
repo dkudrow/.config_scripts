@@ -201,19 +201,19 @@ function! GetAutoP()
 endfunction
 
 " Highlight groups
-highlight StBuffer term=bold cterm=None ctermbg=DarkGrey ctermfg=Black
-highlight StFilename term=bold cterm=bold ctermbg=DarkGrey ctermfg=Cyan
-highlight StFlags term=bold cterm=None ctermbg=DarkGrey ctermfg=Black
-highlight StOptions term=bold cterm=None ctermbg=DarkGrey ctermfg=Black
-highlight StPosition term=bold cterm=bold ctermbg=DarkGrey ctermfg=White
+hi StBuffer   term=bold cterm=None ctermbg=DarkGrey ctermfg=Black
+hi StFilename term=bold cterm=bold ctermbg=DarkGrey ctermfg=Cyan
+hi StFlags    term=bold cterm=None ctermbg=DarkGrey ctermfg=Black
+hi StOptions  term=bold cterm=None ctermbg=DarkGrey ctermfg=Black
+hi StPosition term=bold cterm=bold ctermbg=DarkGrey ctermfg=White
 
 " Status flags
 set statusline=        " Beginning of statusline
 set statusline+=%#StBuffer#
 set statusline+=[%n]   " Buffer number
 set statusline+=%#StFilename#
-set statusline+=\ \"%< " Truncate the filename
-set statusline+=%F\"\  " Filename with full path
+set statusline+=\ \"   " Truncate the filename
+set statusline+=%t\"\  " Filename with full path
 set statusline+=%m     " Modified flag
 set statusline+=%#StFlags#
 set statusline+=%r     " Readonly flag
@@ -369,6 +369,11 @@ set updatecount=100     " after this many characters flush swap file
 set updatetime=1000     " after this many milliseconds flush swap file
 set virtualedit=block   " when to use virtual editing
 
+" Show the highlight rule in effect for the word under the cursor
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+            \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+            \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " GUI options
@@ -377,7 +382,24 @@ set virtualedit=block   " when to use virtual editing
 
 if has('gui_running')
     set bg=light
-endif
+
+    colorscheme multi
+
+    set guifont=Monaco\ 10
+
+    hi StBuffer   gui=None guibg=LightGrey guifg=Black
+    hi StFilename gui=Bold guibg=LightGrey guifg=Black
+    hi StFlags    gui=None guibg=LightGrey guifg=Black
+    hi StOptions  gui=None guibg=LightGrey guifg=Black
+    hi StPosition gui=bold guibg=LightGrey guifg=Black
+
+    " Start gvim in a reasonable location
+    let hostname=substitute(system("hostname"), "\n*$", "", "")
+    if hostname == "fennel"
+        cd /home/fennel/dani
+    endif
+
+endif " gui_running
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
