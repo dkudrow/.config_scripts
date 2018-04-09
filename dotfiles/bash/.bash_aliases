@@ -49,7 +49,9 @@ alias gst='git status'
 alias gig='vim .gitignore'
 
 #svn
-alias svnst='svn st --ignore-externals'
+alias sst='svn st --ignore-externals'
+alias sup='svn up'
+alias sco='svn co'
 
 # grep
 alias grep='grep --binary-files=without-match --color=auto'

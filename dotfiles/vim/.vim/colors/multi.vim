@@ -8,8 +8,8 @@ hi Statement    guifg=Blue      gui=NONE
 hi Type         guifg=Blue      gui=NONE
 hi PreProc      guifg=Blue
 
-hi Search       guifg=Black     guibg=LightGrey
-hi IncSearch    guifg=Black     guibg=LightGrey     gui=NONE
+hi Search       guibg=#0066cc     guifg=White
+hi IncSearch    guibg=#0066cc     guifg=White     gui=NONE
 
 hi LineNr       guifg=Black     guibg=LightGrey
 
